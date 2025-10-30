@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { Grid, List } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FilterBar } from '@/components/library/FilterBar';
 import { BundleCard } from '@/components/library/BundleCard';
 import { PreviewModal } from '@/components/library/PreviewModal';
@@ -89,16 +87,32 @@ export default function LibraryPage() {
             Browse {pdfs.length} admission guides and resources
           </p>
         </div>
-        <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as 'grid' | 'list')}>
-          <TabsList>
-            <TabsTrigger value="grid" aria-label="Grid view">
-              <Grid className="h-4 w-4" />
-            </TabsTrigger>
-            <TabsTrigger value="list" aria-label="List view">
-              <List className="h-4 w-4" />
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
+        <div className="flex gap-2">
+          <button
+            onClick={() => setViewMode('grid')}
+            className={`h-9 w-9 flex items-center justify-center border transition-all ${
+              viewMode === 'grid'
+                ? 'bg-foreground text-background border-foreground'
+                : 'bg-background text-foreground border hover:border-foreground'
+            }`}
+            style={{ borderRadius: 0 }}
+            aria-label="Grid view"
+          >
+            <Grid className="h-4 w-4" />
+          </button>
+          <button
+            onClick={() => setViewMode('list')}
+            className={`h-9 w-9 flex items-center justify-center border transition-all ${
+              viewMode === 'list'
+                ? 'bg-foreground text-background border-foreground'
+                : 'bg-background text-foreground border hover:border-foreground'
+            }`}
+            style={{ borderRadius: 0 }}
+            aria-label="List view"
+          >
+            <List className="h-4 w-4" />
+          </button>
+        </div>
       </div>
 
       {/* Filters */}

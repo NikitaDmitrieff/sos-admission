@@ -1,16 +1,7 @@
 'use client';
 
 import { X, FileText, ExternalLink } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Separator } from '@/components/ui/separator';
 import { PDF } from '@/lib/data/pdfs';
 import { format } from 'date-fns';
 
@@ -33,115 +24,141 @@ export function PreviewModal({ pdf, onClose, allPdfs }: PreviewModalProps) {
     .slice(0, 3);
 
   return (
-    <Dialog open={!!pdf} onOpenChange={onClose}>
-      <DialogContent className="max-w-6xl h-[90vh] p-0">
-        <div className="flex h-full">
-          {/* PDF Viewer Area */}
-          <div className="flex-1 bg-muted flex items-center justify-center relative">
-            <div className="text-center p-8">
-              <FileText className="h-24 w-24 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-lg font-semibold mb-2">PDF Preview</h3>
-              <p className="text-sm text-muted-foreground mb-4">
-                PDF viewer will be integrated here
-              </p>
-              <Button variant="outline" size="sm">
-                <ExternalLink className="h-4 w-4 mr-2" />
-                Open in New Tab
-              </Button>
+    <div className="fixed inset-0 z-50 bg-background/95 backdrop-blur-md flex items-center justify-center p-4">
+      <div
+        className="w-full max-w-6xl h-[90vh] border bg-background shadow-lg transition-all duration-300 flex"
+        style={{ borderRadius: 0 }}
+      >
+        {/* PDF Viewer Area */}
+        <div className="flex-1 bg-foreground/5 flex items-center justify-center relative border-r">
+          <div className="text-center p-8">
+            <div
+              className="h-24 w-24 bg-foreground/5 flex items-center justify-center mx-auto mb-4"
+              style={{ borderRadius: 0 }}
+            >
+              <FileText className="h-12 w-12 text-muted-foreground" />
             </div>
+            <h3 className="text-base font-medium mb-2">PDF Preview</h3>
+            <p className="text-xs text-muted-foreground mb-4">
+              PDF viewer will be integrated here
+            </p>
+            <button
+              className="h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
+              style={{ borderRadius: 0 }}
+            >
+              <ExternalLink className="h-4 w-4 mr-2 inline" />
+              Open in New Tab
+            </button>
+          </div>
+        </div>
+
+        {/* Metadata Sidebar */}
+        <div className="w-80 flex flex-col">
+          {/* Header */}
+          <div
+            className="border-b px-6 py-4 transition-all duration-300 relative"
+            style={{ borderRadius: 0 }}
+          >
+            <h2 className="text-base font-medium pr-8 leading-tight">
+              {pdf.title}
+            </h2>
+            <button
+              onClick={onClose}
+              className="absolute top-4 right-4 h-9 w-9 flex items-center justify-center border hover:border-foreground transition-all"
+              style={{ borderRadius: 0 }}
+              aria-label="Close"
+            >
+              <X className="h-4 w-4" />
+            </button>
           </div>
 
-          {/* Metadata Sidebar */}
-          <div className="w-80 border-l flex flex-col">
-            <DialogHeader className="p-6 pb-4">
-              <DialogTitle className="text-base leading-tight pr-8">
-                {pdf.title}
-              </DialogTitle>
-            </DialogHeader>
+          {/* Content */}
+          <ScrollArea className="flex-1">
+            <div className="p-6 space-y-4">
+              {/* School */}
+              <div>
+                <p className="text-xs font-medium mb-1">School</p>
+                <p className="text-sm text-muted-foreground">{pdf.school}</p>
+              </div>
 
-            <ScrollArea className="flex-1 px-6">
-              <div className="space-y-6 pb-6">
-                {/* School & Country */}
-                <div>
-                  <p className="text-sm font-medium mb-1">School</p>
-                  <p className="text-sm text-muted-foreground">{pdf.school}</p>
+              {/* Country */}
+              <div>
+                <p className="text-xs font-medium mb-1">Country</p>
+                <p className="text-sm text-muted-foreground">{pdf.country}</p>
+              </div>
+
+              {/* Level */}
+              <div>
+                <p className="text-xs font-medium mb-1">Level</p>
+                <p className="text-sm text-muted-foreground">{pdf.level}</p>
+              </div>
+
+              {/* Description */}
+              <div>
+                <p className="text-xs font-medium mb-1.5">Description</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {pdf.description}
+                </p>
+              </div>
+
+              {/* Tags */}
+              <div>
+                <p className="text-xs font-medium mb-1.5">Tags</p>
+                <div className="flex flex-wrap gap-2">
+                  {pdf.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="h-7 px-3 text-xs border bg-background flex items-center"
+                      style={{ borderRadius: 0 }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
+              </div>
 
-                <div>
-                  <p className="text-sm font-medium mb-1">Country</p>
-                  <p className="text-sm text-muted-foreground">{pdf.country}</p>
-                </div>
+              {/* Updated Date */}
+              <div>
+                <p className="text-xs font-medium mb-1">Last Updated</p>
+                <p className="text-sm text-muted-foreground">
+                  {format(new Date(pdf.updatedAt), 'MMMM d, yyyy')}
+                </p>
+              </div>
 
-                <div>
-                  <p className="text-sm font-medium mb-1">Level</p>
-                  <p className="text-sm text-muted-foreground">{pdf.level}</p>
-                </div>
-
-                {/* Description */}
-                <div>
-                  <p className="text-sm font-medium mb-2">Description</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {pdf.description}
-                  </p>
-                </div>
-
-                {/* Tags */}
-                <div>
-                  <p className="text-sm font-medium mb-2">Tags</p>
-                  <div className="flex flex-wrap gap-2">
-                    {pdf.tags.map((tag) => (
-                      <Badge key={tag} variant="secondary">
-                        {tag}
-                      </Badge>
+              {/* Related PDFs */}
+              {relatedPdfs.length > 0 && (
+                <div className="pt-4 border-t">
+                  <p className="text-xs font-medium mb-2">Related PDFs</p>
+                  <div className="space-y-2">
+                    {relatedPdfs.map((relatedPdf) => (
+                      <button
+                        key={relatedPdf.id}
+                        onClick={() => {
+                          onClose();
+                          // In a real app, this would open the related PDF
+                          setTimeout(() => {
+                            // Re-open with the related PDF
+                          }, 100);
+                        }}
+                        className="w-full text-left p-3 border hover:border-foreground transition-all"
+                        style={{ borderRadius: 0 }}
+                      >
+                        <p className="text-sm font-medium line-clamp-2">
+                          {relatedPdf.title}
+                        </p>
+                        <p className="text-xs text-muted-foreground mt-0.5">
+                          {relatedPdf.school}
+                        </p>
+                      </button>
                     ))}
                   </div>
                 </div>
-
-                {/* Updated Date */}
-                <div>
-                  <p className="text-sm font-medium mb-1">Last Updated</p>
-                  <p className="text-sm text-muted-foreground">
-                    {format(new Date(pdf.updatedAt), 'MMMM d, yyyy')}
-                  </p>
-                </div>
-
-                {/* Related PDFs */}
-                {relatedPdfs.length > 0 && (
-                  <>
-                    <Separator />
-                    <div>
-                      <p className="text-sm font-medium mb-3">Related PDFs</p>
-                      <div className="space-y-2">
-                        {relatedPdfs.map((relatedPdf) => (
-                          <button
-                            key={relatedPdf.id}
-                            onClick={() => {
-                              onClose();
-                              // In a real app, this would open the related PDF
-                              setTimeout(() => {
-                                // Re-open with the related PDF
-                              }, 100);
-                            }}
-                            className="w-full text-left p-2 rounded-md hover:bg-accent transition-colors"
-                          >
-                            <p className="text-sm font-medium line-clamp-2">
-                              {relatedPdf.title}
-                            </p>
-                            <p className="text-xs text-muted-foreground mt-1">
-                              {relatedPdf.school}
-                            </p>
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  </>
-                )}
-              </div>
-            </ScrollArea>
-          </div>
+              )}
+            </div>
+          </ScrollArea>
         </div>
-      </DialogContent>
-    </Dialog>
+      </div>
+    </div>
   );
 }
 

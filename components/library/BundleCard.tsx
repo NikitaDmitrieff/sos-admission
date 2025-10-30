@@ -1,9 +1,6 @@
 'use client';
 
 import { FileText, Eye, FolderPlus } from 'lucide-react';
-import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { PDF } from '@/lib/data/pdfs';
 import { format } from 'date-fns';
@@ -17,84 +14,119 @@ interface BundleCardProps {
 export function BundleCard({ pdf, viewMode = 'grid', onPreview }: BundleCardProps) {
   if (viewMode === 'list') {
     return (
-      <Card className="hover:shadow-md transition-shadow">
-        <div className="flex items-center p-4 gap-4">
-          <div className="flex-shrink-0 w-16 h-16 bg-muted rounded-lg flex items-center justify-center">
-            <FileText className="h-8 w-8 text-muted-foreground" />
+      <div
+        className="border bg-background shadow-lg transition-all duration-300"
+        style={{ borderRadius: 0 }}
+      >
+        <div className="flex items-center p-6 gap-4">
+          <div
+            className="flex-shrink-0 w-12 h-12 bg-foreground/5 flex items-center justify-center"
+            style={{ borderRadius: 0 }}
+          >
+            <FileText className="h-5 w-5" />
           </div>
           
           <div className="flex-1 min-w-0">
-            <h3 className="font-semibold text-sm truncate">{pdf.title}</h3>
-            <p className="text-xs text-muted-foreground mt-1">
+            <h3 className="text-sm font-medium truncate">{pdf.title}</h3>
+            <p className="text-xs text-muted-foreground mt-0.5">
               {pdf.school} • {pdf.country}
             </p>
-            <div className="flex flex-wrap gap-1 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               {pdf.tags.slice(0, 3).map((tag) => (
-                <Badge key={tag} variant="outline" className="text-xs">
+                <span
+                  key={tag}
+                  className="h-7 px-3 text-xs border bg-background flex items-center"
+                  style={{ borderRadius: 0 }}
+                >
                   {tag}
-                </Badge>
+                </span>
               ))}
               {pdf.tags.length > 3 && (
-                <Badge variant="outline" className="text-xs">
+                <span
+                  className="h-7 px-3 text-xs border bg-background flex items-center"
+                  style={{ borderRadius: 0 }}
+                >
                   +{pdf.tags.length - 3}
-                </Badge>
+                </span>
               )}
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <span className="text-xs text-muted-foreground hidden sm:block">
               {format(new Date(pdf.updatedAt), 'MMM d, yyyy')}
             </span>
-            <Button
-              variant="outline"
-              size="sm"
+            <button
               onClick={() => onPreview(pdf)}
+              className="h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
+              style={{ borderRadius: 0 }}
             >
-              <Eye className="h-4 w-4 mr-2" />
+              <Eye className="h-4 w-4 mr-2 inline" />
               Preview
-            </Button>
+            </button>
           </div>
         </div>
-      </Card>
+      </div>
     );
   }
 
   return (
-    <Card className="hover:shadow-md transition-shadow group">
-      <CardHeader className="pb-3">
-        <div className="aspect-video bg-muted rounded-md flex items-center justify-center mb-3">
+    <div
+      className="border bg-background shadow-lg transition-all duration-300 flex flex-col h-full"
+      style={{ borderRadius: 0 }}
+    >
+      {/* Header with thumbnail - Fixed height */}
+      <div
+        className="border-b px-6 py-4 transition-all duration-300"
+        style={{ borderRadius: 0 }}
+      >
+        <div
+          className="aspect-video bg-foreground/5 flex items-center justify-center mb-3"
+          style={{ borderRadius: 0 }}
+        >
           <FileText className="h-12 w-12 text-muted-foreground" />
         </div>
-        <h3 className="font-semibold text-sm line-clamp-2 leading-tight">
+        <h3 className="text-sm font-medium line-clamp-2 leading-tight h-10">
           {pdf.title}
         </h3>
-      </CardHeader>
+      </div>
       
-      <CardContent className="pb-3">
-        <p className="text-xs text-muted-foreground mb-3">
+      {/* Content - Flex grow to fill space */}
+      <div className="p-6 space-y-4 flex-1 flex flex-col">
+        <p className="text-xs text-muted-foreground">
           {pdf.school}
         </p>
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-2">
           {pdf.tags.slice(0, 2).map((tag) => (
-            <Badge key={tag} variant="outline" className="text-xs">
+            <span
+              key={tag}
+              className="h-7 px-3 text-xs border bg-background flex items-center"
+              style={{ borderRadius: 0 }}
+            >
               {tag}
-            </Badge>
+            </span>
           ))}
           {pdf.tags.length > 2 && (
             <TooltipProvider>
               <Tooltip>
                 <TooltipTrigger asChild>
-                  <Badge variant="outline" className="text-xs cursor-help">
+                  <span
+                    className="h-7 px-3 text-xs border bg-background flex items-center cursor-help"
+                    style={{ borderRadius: 0 }}
+                  >
                     +{pdf.tags.length - 2}
-                  </Badge>
+                  </span>
                 </TooltipTrigger>
                 <TooltipContent>
-                  <div className="flex flex-wrap gap-1 max-w-xs">
+                  <div className="flex flex-wrap gap-2 max-w-xs">
                     {pdf.tags.slice(2).map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs">
+                      <span
+                        key={tag}
+                        className="h-7 px-3 text-xs border bg-background flex items-center"
+                        style={{ borderRadius: 0 }}
+                      >
                         {tag}
-                      </Badge>
+                      </span>
                     ))}
                   </div>
                 </TooltipContent>
@@ -102,32 +134,39 @@ export function BundleCard({ pdf, viewMode = 'grid', onPreview }: BundleCardProp
             </TooltipProvider>
           )}
         </div>
-      </CardContent>
+      </div>
 
-      <CardFooter className="flex gap-2 pt-3">
-        <Button
-          variant="outline"
-          size="sm"
-          className="flex-1"
+      {/* Footer - Fixed at bottom */}
+      <div
+        className="border-t px-6 py-3 transition-all duration-300 flex gap-2 mt-auto"
+        style={{ borderRadius: 0 }}
+      >
+        <button
           onClick={() => onPreview(pdf)}
+          className="flex-1 h-9 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
+          style={{ borderRadius: 0 }}
         >
-          <Eye className="h-4 w-4 mr-1" />
+          <Eye className="h-4 w-4 mr-1 inline" />
           Preview
-        </Button>
+        </button>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger asChild>
-              <Button variant="outline" size="sm" disabled>
+              <button
+                disabled
+                className="h-9 w-9 flex items-center justify-center bg-background text-foreground border disabled:opacity-50 transition-all"
+                style={{ borderRadius: 0 }}
+              >
                 <FolderPlus className="h-4 w-4" />
-              </Button>
+              </button>
             </TooltipTrigger>
             <TooltipContent>
-              <p>Save to Process (Coming soon)</p>
+              <p className="text-xs">Save to Process (Coming soon)</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   );
 }
 
