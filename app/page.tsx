@@ -24,8 +24,13 @@ export default function Home() {
       if (query.length > 0) {
         setIsActive(true);
 
-        const results = await searchPDFs(query);
-        setSearchResults(results);
+        try {
+          const results = await searchPDFs(query);
+          setSearchResults(results);
+        } catch (error) {
+          console.error('Failed to search PDFs:', error);
+          setSearchResults([]);
+        }
 
         const lowerQuery = query.toLowerCase();
         const filtered = navigationItems.filter((item) =>

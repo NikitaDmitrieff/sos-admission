@@ -46,8 +46,13 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   useEffect(() => {
     const fetchResults = async () => {
       if (query.length > 0) {
-        const results = await searchPDFs(query);
-        setSearchResults(results.slice(0, 5)); // Limit to 5 results
+        try {
+          const results = await searchPDFs(query);
+          setSearchResults(results.slice(0, 5)); // Limit to 5 results
+        } catch (error) {
+          console.error('Failed to search PDFs:', error);
+          setSearchResults([]);
+        }
       } else {
         setSearchResults([]);
       }
@@ -63,7 +68,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
   };
 
   return (
-    <CommandDialog open={open} onOpenChange={onOpenChange}>
+    <CommandDialog open={open} onOpenChange={onOpenChange} shouldFilter={false}>
       <CommandInput
         placeholder="Search PDFs or navigate..."
         value={query}
@@ -72,33 +77,31 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
 
-        <CommandGroup heading="Navigation">
-          {navigationItems.map((item) => {
-            const Icon = item.icon;
-            return (
-              <CommandItem
-                key={item.href}
-                onSelect={() => handleSelect(item.href)}
-              >
-                <Icon className="mr-2 h-4 w-4" />
-                <span>{item.title}</span>
-              </CommandItem>
-            );
-          })}
-        </CommandGroup>
+        {!query && (
+          <CommandGroup heading="Navigation">
+            {navigationItems.map((item) => {
+              const Icon = item.icon;
+              return (
+                <CommandItem
+                  key={item.href}
+                  onSelect={() => handleSelect(item.href)}
+                >
+                  <Icon className="mr-2 h-4 w-4" />
+                  <span>{item.title}</span>
+                </CommandItem>
+              );
+            })}
+          </CommandGroup>
+        )}
 
         {searchResults.length > 0 && (
           <>
-            <CommandSeparator />
+            {!query && <CommandSeparator />}
             <CommandGroup heading="PDFs">
               {searchResults.map((pdf) => (
                 <CommandItem
                   key={pdf.id}
-                  onSelect={() => {
-                    // For MVP, just navigate to library
-                    // Later: open preview modal or navigate to PDF detail
-                    handleSelect('/library');
-                  }}
+                  onSelect={() => handleSelect('/library')}
                 >
                   <FileText className="mr-2 h-4 w-4" />
                   <div className="flex flex-col">

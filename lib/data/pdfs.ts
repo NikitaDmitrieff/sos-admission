@@ -71,30 +71,27 @@ export async function getPDFById(id: string): Promise<PDF | null> {
 }
 
 export async function searchPDFs(query: string): Promise<PDF[]> {
-  const supabase = createClient();
-  const lowerQuery = query.toLowerCase();
-  
-  // Use Postgres text search with ilike for flexible matching
-  const { data, error } = await supabase
-    .from('pdfs')
-    .select('*')
-    .or(`title.ilike.%${lowerQuery}%,school.ilike.%${lowerQuery}%,description.ilike.%${lowerQuery}%`)
-    .order('updated_at', { ascending: false });
-  
-  if (error) {
-    console.error('Error searching PDFs:', error);
-    throw new Error('Failed to search PDFs');
+  if (!query || query.trim().length === 0) {
+    return [];
   }
   
-  // Additional client-side filtering for tags
-  const results = (data || []).filter(
-    (pdf) =>
-      pdf.title.toLowerCase().includes(lowerQuery) ||
-      pdf.school.toLowerCase().includes(lowerQuery) ||
-      pdf.description.toLowerCase().includes(lowerQuery) ||
-      pdf.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
-  );
-  
-  return results.map(transformPDF);
+  try {
+    // For small datasets, fetch all and filter client-side for consistency
+    // This ensures tag search works properly
+    const allPDFs = await getAllPDFs();
+    const lowerQuery = query.toLowerCase().trim();
+    
+    return allPDFs.filter(
+      (pdf) =>
+        pdf.title.toLowerCase().includes(lowerQuery) ||
+        pdf.school.toLowerCase().includes(lowerQuery) ||
+        pdf.country.toLowerCase().includes(lowerQuery) ||
+        pdf.description.toLowerCase().includes(lowerQuery) ||
+        pdf.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
+    );
+  } catch (error) {
+    console.error('Error during search:', error);
+    throw error;
+  }
 }
 
