@@ -1,9 +1,23 @@
 'use client';
 
-import { X, FileText, ExternalLink } from 'lucide-react';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+import { X, FileText, ExternalLink, Loader2 } from 'lucide-react';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { PDF } from '@/lib/data/pdfs';
 import { format } from 'date-fns';
+
+const PDFViewer = dynamic(
+  () => import('@/components/library/PDFViewer').then((mod) => mod.PDFViewer),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="flex items-center justify-center p-8">
+        <Loader2 className="h-8 w-8 text-muted-foreground animate-spin" />
+      </div>
+    ),
+  }
+);
 
 interface PreviewModalProps {
   pdf: PDF | null;
@@ -12,6 +26,8 @@ interface PreviewModalProps {
 }
 
 export function PreviewModal({ pdf, onClose, allPdfs }: PreviewModalProps) {
+  const [pdfError, setPdfError] = useState(false);
+  
   if (!pdf) return null;
 
   // Find related PDFs (same tags or school)
@@ -30,29 +46,51 @@ export function PreviewModal({ pdf, onClose, allPdfs }: PreviewModalProps) {
         style={{ borderRadius: 0 }}
       >
         {/* PDF Viewer Area */}
-        <div className="flex-1 bg-foreground/5 flex items-center justify-center relative border-r">
-          <div className="text-center p-8">
-            <div
-              className="h-24 w-24 bg-foreground/5 flex items-center justify-center mx-auto mb-4"
-              style={{ borderRadius: 0 }}
-            >
-              <FileText className="h-12 w-12 text-muted-foreground" />
+        <div className="flex-1 bg-foreground/5 flex flex-col items-center justify-center relative border-r p-4 overflow-auto">
+          {pdfError ? (
+            <div className="text-center p-8">
+              <div
+                className="h-24 w-24 bg-foreground/5 flex items-center justify-center mx-auto mb-4"
+                style={{ borderRadius: 0 }}
+              >
+                <FileText className="h-12 w-12 text-muted-foreground" />
+              </div>
+              <h3 className="text-base font-medium mb-2">Unable to load PDF</h3>
+              <p className="text-xs text-muted-foreground mb-4">
+                The PDF could not be displayed in the browser
+              </p>
+              <a
+                href={pdf.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
+                style={{ borderRadius: 0 }}
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Open in New Tab
+              </a>
             </div>
-            <h3 className="text-base font-medium mb-2">PDF Preview</h3>
-            <p className="text-xs text-muted-foreground mb-4">
-              PDF viewer will be integrated here
-            </p>
-            <a
-              href={pdf.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
-              style={{ borderRadius: 0 }}
-            >
-              <ExternalLink className="h-4 w-4 mr-2" />
-              Open in New Tab
-            </a>
-          </div>
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-start">
+              <div className="flex-1 flex items-center justify-center">
+                <PDFViewer
+                  url={pdf.url}
+                  width={600}
+                  onLoadError={() => setPdfError(true)}
+                />
+              </div>
+              <a
+                href={pdf.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-4 inline-flex items-center h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
+                style={{ borderRadius: 0 }}
+              >
+                <ExternalLink className="h-4 w-4 mr-2" />
+                Open in New Tab
+              </a>
+            </div>
+          )}
         </div>
 
         {/* Metadata Sidebar */}

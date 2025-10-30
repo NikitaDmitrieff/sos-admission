@@ -1,9 +1,22 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { FileText, Eye, FolderPlus } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { PDF } from '@/lib/data/pdfs';
 import { format } from 'date-fns';
+
+const PDFThumbnail = dynamic(
+  () => import('@/components/library/PDFViewer').then((mod) => mod.PDFThumbnail),
+  { 
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center bg-foreground/5">
+        <FileText className="h-5 w-5 text-muted-foreground" />
+      </div>
+    ),
+  }
+);
 
 interface BundleCardProps {
   pdf: PDF;
@@ -20,10 +33,10 @@ export function BundleCard({ pdf, viewMode = 'grid', onPreview }: BundleCardProp
       >
         <div className="flex items-center p-6 gap-4">
           <div
-            className="flex-shrink-0 w-12 h-12 bg-foreground/5 flex items-center justify-center"
+            className="flex-shrink-0 w-12 h-12 bg-foreground/5 overflow-hidden"
             style={{ borderRadius: 0 }}
           >
-            <FileText className="h-5 w-5" />
+            <PDFThumbnail url={pdf.url} className="w-full h-full" />
           </div>
           
           <div className="flex-1 min-w-0">
@@ -81,10 +94,10 @@ export function BundleCard({ pdf, viewMode = 'grid', onPreview }: BundleCardProp
         style={{ borderRadius: 0 }}
       >
         <div
-          className="aspect-video bg-foreground/5 flex items-center justify-center mb-3"
+          className="aspect-video bg-foreground/5 flex items-center justify-center mb-3 overflow-hidden"
           style={{ borderRadius: 0 }}
         >
-          <FileText className="h-12 w-12 text-muted-foreground" />
+          <PDFThumbnail url={pdf.url} className="w-full h-full" />
         </div>
         <h3 className="text-sm font-medium line-clamp-2 leading-tight h-10">
           {pdf.title}
