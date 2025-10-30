@@ -54,7 +54,7 @@ export function Sidebar({ className }: SidebarProps) {
       )}
     >
       <div className="p-6">
-        <Link href="/library" className="flex items-center gap-2 group">
+        <Link href="/" className="flex items-center gap-2 group">
           <Sparkles className="h-8 w-8 text-primary" />
           <span className="text-1xl font-bold">SOS Admissions</span>
         </Link>
