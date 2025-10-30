@@ -42,13 +42,16 @@ export function PreviewModal({ pdf, onClose, allPdfs }: PreviewModalProps) {
             <p className="text-xs text-muted-foreground mb-4">
               PDF viewer will be integrated here
             </p>
-            <button
-              className="h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
+            <a
+              href={pdf.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center h-9 px-3 text-sm bg-foreground text-background hover:bg-foreground/90 transition-all border border-foreground"
               style={{ borderRadius: 0 }}
             >
-              <ExternalLink className="h-4 w-4 mr-2 inline" />
+              <ExternalLink className="h-4 w-4 mr-2" />
               Open in New Tab
-            </button>
+            </a>
           </div>
         </div>
 

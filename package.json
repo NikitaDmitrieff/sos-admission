@@ -7,7 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "migrate:pdfs": "tsx scripts/migrate-pdfs.ts"
   },
   "keywords": [],
   "author": "",
@@ -49,10 +50,12 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.16",
     "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.3",
     "eslint": "^9.38.0",
     "eslint-config-next": "^16.0.1",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.16",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "tsx": "^4.20.6"
   }
 }

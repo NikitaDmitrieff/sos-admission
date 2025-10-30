@@ -35,3 +35,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Sample PDFs (already uploaded to Supabase)
+/data_sample/*.pdf
+
