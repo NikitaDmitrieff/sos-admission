@@ -1,0 +1,278 @@
+[
+  {
+    "id": "1",
+    "title": "Complete Guide to Applying to Bocconi University",
+    "school": "Bocconi University",
+    "country": "Italy",
+    "level": "Undergraduate",
+    "tags": ["Business", "Economics", "Application Process", "Italy"],
+    "description": "Comprehensive guide covering application requirements, deadlines, entrance exams (BMAT), and tips for crafting a strong application to Bocconi's undergraduate programs.",
+    "url": "/pdfs/bocconi-guide.pdf",
+    "updatedAt": "2024-10-15"
+  },
+  {
+    "id": "2",
+    "title": "Writing a Compelling Motivation Letter",
+    "school": "General",
+    "country": "International",
+    "level": "General",
+    "tags": ["Motivation Letter", "Writing Tips", "Application Tips"],
+    "description": "Step-by-step guide to writing a motivation letter that stands out. Includes examples, common mistakes to avoid, and templates for different programs.",
+    "url": "/pdfs/motivation-letter-guide.pdf",
+    "updatedAt": "2024-10-20"
+  },
+  {
+    "id": "3",
+    "title": "ESADE Business School Application Strategy",
+    "school": "ESADE",
+    "country": "Spain",
+    "level": "Graduate",
+    "tags": ["MBA", "Business", "Spain", "Application Strategy"],
+    "description": "Strategic guide for MBA applicants to ESADE, covering program options, admission criteria, essay prompts, and interview preparation.",
+    "url": "/pdfs/esade-mba-guide.pdf",
+    "updatedAt": "2024-09-28"
+  },
+  {
+    "id": "4",
+    "title": "LSE Undergraduate Admissions: What You Need to Know",
+    "school": "London School of Economics",
+    "country": "United Kingdom",
+    "level": "Undergraduate",
+    "tags": ["Economics", "UK", "Application Process", "Personal Statement"],
+    "description": "Insider's guide to LSE undergraduate admissions, including personal statement tips, required grades, and how to prepare for the interview process.",
+    "url": "/pdfs/lse-undergraduate.pdf",
+    "updatedAt": "2024-10-10"
+  },
+  {
+    "id": "5",
+    "title": "Mastering the GMAT for Business School",
+    "school": "General",
+    "country": "International",
+    "level": "Graduate",
+    "tags": ["GMAT", "Test Prep", "MBA", "Study Tips"],
+    "description": "Complete GMAT preparation guide with study schedules, practice strategies, and tips for achieving a competitive score for top business schools.",
+    "url": "/pdfs/gmat-prep-guide.pdf",
+    "updatedAt": "2024-09-15"
+  },
+  {
+    "id": "6",
+    "title": "Sciences Po Paris: The Application Journey",
+    "school": "Sciences Po",
+    "country": "France",
+    "level": "Undergraduate",
+    "tags": ["Political Science", "France", "Interviews", "Application Process"],
+    "description": "Navigate the Sciences Po application process, including the written exam, oral interview, and tips for international applicants.",
+    "url": "/pdfs/sciences-po-guide.pdf",
+    "updatedAt": "2024-10-05"
+  },
+  {
+    "id": "7",
+    "title": "Oxford University Application Timeline and Tips",
+    "school": "University of Oxford",
+    "country": "United Kingdom",
+    "level": "Undergraduate",
+    "tags": ["UK", "Oxford", "UCAS", "Interviews", "Personal Statement"],
+    "description": "Detailed timeline and advice for applying to Oxford through UCAS, including college selection, admission tests, and interview preparation.",
+    "url": "/pdfs/oxford-application.pdf",
+    "updatedAt": "2024-08-30"
+  },
+  {
+    "id": "8",
+    "title": "ETH Zurich Engineering Programs Overview",
+    "school": "ETH Zurich",
+    "country": "Switzerland",
+    "level": "Undergraduate",
+    "tags": ["Engineering", "Switzerland", "STEM", "Requirements"],
+    "description": "Overview of engineering programs at ETH Zurich, admission requirements, language proficiency, and life as an international student.",
+    "url": "/pdfs/eth-engineering.pdf",
+    "updatedAt": "2024-09-12"
+  },
+  {
+    "id": "9",
+    "title": "HEC Paris MBA Application Essentials",
+    "school": "HEC Paris",
+    "country": "France",
+    "level": "Graduate",
+    "tags": ["MBA", "Business", "France", "Essays"],
+    "description": "Essential guide for HEC Paris MBA applicants, covering program structure, essay questions, GMAT requirements, and career outcomes.",
+    "url": "/pdfs/hec-mba-guide.pdf",
+    "updatedAt": "2024-10-01"
+  },
+  {
+    "id": "10",
+    "title": "Crafting Your CV for European Universities",
+    "school": "General",
+    "country": "International",
+    "level": "General",
+    "tags": ["CV", "Resume", "Application Tips", "Europe"],
+    "description": "How to format and write a CV tailored for European university applications, with examples and country-specific variations.",
+    "url": "/pdfs/cv-guide-europe.pdf",
+    "updatedAt": "2024-10-12"
+  },
+  {
+    "id": "11",
+    "title": "IE Business School: Application and Scholarships",
+    "school": "IE Business School",
+    "country": "Spain",
+    "level": "Graduate",
+    "tags": ["MBA", "Business", "Spain", "Scholarships"],
+    "description": "Comprehensive guide to IE Business School applications, including scholarship opportunities, program options, and admission criteria.",
+    "url": "/pdfs/ie-business-school.pdf",
+    "updatedAt": "2024-09-20"
+  },
+  {
+    "id": "12",
+    "title": "Cambridge University Admissions: A Complete Guide",
+    "school": "University of Cambridge",
+    "country": "United Kingdom",
+    "level": "Undergraduate",
+    "tags": ["UK", "Cambridge", "UCAS", "Admissions Tests"],
+    "description": "Everything you need to know about applying to Cambridge, from choosing a college to acing the admission tests and interviews.",
+    "url": "/pdfs/cambridge-guide.pdf",
+    "updatedAt": "2024-09-05"
+  },
+  {
+    "id": "13",
+    "title": "IELTS and TOEFL: Which Test Should You Take?",
+    "school": "General",
+    "country": "International",
+    "level": "General",
+    "tags": ["English Tests", "IELTS", "TOEFL", "Test Prep"],
+    "description": "Comparison guide between IELTS and TOEFL, including test formats, scoring, and which universities accept each test.",
+    "url": "/pdfs/ielts-toefl-comparison.pdf",
+    "updatedAt": "2024-10-18"
+  },
+  {
+    "id": "14",
+    "title": "University of Amsterdam Application Guide",
+    "school": "University of Amsterdam",
+    "country": "Netherlands",
+    "level": "Undergraduate",
+    "tags": ["Netherlands", "Application Process", "Europe"],
+    "description": "Step-by-step guide to applying to UvA, including program selection, admission requirements, and housing tips for international students.",
+    "url": "/pdfs/uva-guide.pdf",
+    "updatedAt": "2024-09-25"
+  },
+  {
+    "id": "15",
+    "title": "Imperial College London: Engineering and Science Applications",
+    "school": "Imperial College London",
+    "country": "United Kingdom",
+    "level": "Undergraduate",
+    "tags": ["Engineering", "Science", "UK", "STEM"],
+    "description": "Guide for prospective students applying to Imperial's engineering and science programs, including entry requirements and application tips.",
+    "url": "/pdfs/imperial-stem.pdf",
+    "updatedAt": "2024-10-08"
+  },
+  {
+    "id": "16",
+    "title": "Recommendation Letters: What Professors Look For",
+    "school": "General",
+    "country": "International",
+    "level": "General",
+    "tags": ["Recommendation Letters", "Application Tips", "References"],
+    "description": "Insider advice on requesting and securing strong recommendation letters, including what to ask for and how to help your recommenders.",
+    "url": "/pdfs/recommendation-letters.pdf",
+    "updatedAt": "2024-10-22"
+  },
+  {
+    "id": "17",
+    "title": "INSEAD MBA: A Global Business School Experience",
+    "school": "INSEAD",
+    "country": "France/Singapore",
+    "level": "Graduate",
+    "tags": ["MBA", "Business", "International", "Career"],
+    "description": "Overview of INSEAD's MBA program across its campuses, admission process, and what makes this global program unique.",
+    "url": "/pdfs/insead-mba.pdf",
+    "updatedAt": "2024-09-18"
+  },
+  {
+    "id": "18",
+    "title": "Gap Year Guide: Making the Most of Your Time",
+    "school": "General",
+    "country": "International",
+    "level": "General",
+    "tags": ["Gap Year", "Planning", "Experience"],
+    "description": "How to plan a productive gap year, including internships, volunteering, travel, and how to present it in university applications.",
+    "url": "/pdfs/gap-year-guide.pdf",
+    "updatedAt": "2024-10-14"
+  },
+  {
+    "id": "19",
+    "title": "King's College London: Application and Programs",
+    "school": "King's College London",
+    "country": "United Kingdom",
+    "level": "Undergraduate",
+    "tags": ["UK", "London", "Application Process"],
+    "description": "Comprehensive guide to KCL's programs and application process, including tips for international students and campus life.",
+    "url": "/pdfs/kcl-guide.pdf",
+    "updatedAt": "2024-09-30"
+  },
+  {
+    "id": "20",
+    "title": "Scholarships for International Students in Europe",
+    "school": "General",
+    "country": "Europe",
+    "level": "General",
+    "tags": ["Scholarships", "Funding", "Europe", "Financial Aid"],
+    "description": "Directory of scholarship opportunities for international students studying in Europe, including Erasmus+, government scholarships, and university-specific funding.",
+    "url": "/pdfs/europe-scholarships.pdf",
+    "updatedAt": "2024-10-11"
+  },
+  {
+    "id": "21",
+    "title": "Heidelberg University: Medicine and Research",
+    "school": "Heidelberg University",
+    "country": "Germany",
+    "level": "Undergraduate",
+    "tags": ["Medicine", "Germany", "Research", "STEM"],
+    "description": "Guide to studying medicine at one of Germany's oldest universities, including admission process and language requirements.",
+    "url": "/pdfs/heidelberg-medicine.pdf",
+    "updatedAt": "2024-09-22"
+  },
+  {
+    "id": "22",
+    "title": "Interview Preparation for University Admissions",
+    "school": "General",
+    "country": "International",
+    "level": "General",
+    "tags": ["Interviews", "Preparation", "Tips"],
+    "description": "Master the university admission interview with practice questions, dos and don'ts, and strategies for making a strong impression.",
+    "url": "/pdfs/interview-prep.pdf",
+    "updatedAt": "2024-10-19"
+  },
+  {
+    "id": "23",
+    "title": "IE University Undergraduate Programs Guide",
+    "school": "IE University",
+    "country": "Spain",
+    "level": "Undergraduate",
+    "tags": ["Spain", "Business", "Liberal Arts"],
+    "description": "Overview of IE University's undergraduate programs in business, international relations, and architecture, with application requirements.",
+    "url": "/pdfs/ie-undergraduate.pdf",
+    "updatedAt": "2024-10-03"
+  },
+  {
+    "id": "24",
+    "title": "SDA Bocconi MBA Application Strategy",
+    "school": "Bocconi University",
+    "country": "Italy",
+    "level": "Graduate",
+    "tags": ["MBA", "Business", "Italy", "Strategy"],
+    "description": "Detailed application strategy for SDA Bocconi's MBA program, including class profile, essays, and interview tips.",
+    "url": "/pdfs/sda-bocconi-mba.pdf",
+    "updatedAt": "2024-09-27"
+  },
+  {
+    "id": "25",
+    "title": "Preparing for the SAT and ACT: International Students",
+    "school": "General",
+    "country": "International",
+    "level": "Undergraduate",
+    "tags": ["SAT", "ACT", "Test Prep", "US Applications"],
+    "description": "Guide for international students preparing for SAT and ACT exams, including test structure, study resources, and when to take each test.",
+    "url": "/pdfs/sat-act-guide.pdf",
+    "updatedAt": "2024-10-16"
+  }
+]
+
