@@ -2,24 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Button } from '@/components/ui/button';
-import { Switch } from '@/components/ui/switch';
-import { Badge } from '@/components/ui/badge';
-import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/components/ui/use-toast';
 import { useTheme } from '@/components/providers/theme-provider';
 
@@ -90,17 +79,31 @@ export function PreferencesCard() {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Preferences</CardTitle>
-        <CardDescription>
+    <div 
+      className="border bg-background shadow-lg transition-all duration-300"
+      style={{ borderRadius: 0 }}
+    >
+      {/* Header */}
+      <div 
+        className="border-b px-6 py-4 transition-all duration-300"
+        style={{ borderRadius: 0 }}
+      >
+        <h2 className="text-base font-medium">Preferences</h2>
+        <p className="text-xs text-muted-foreground mt-0.5">
           Customize your experience and interests
-        </CardDescription>
-      </CardHeader>
-      <CardContent className="space-y-6">
+        </p>
+      </div>
+
+      {/* Content */}
+      <div className="p-6 space-y-4">
         {/* School Year */}
-        <div className="space-y-2">
-          <Label htmlFor="schoolYear">School Year</Label>
+        <div className="space-y-1.5">
+          <label 
+            htmlFor="schoolYear" 
+            className="text-xs font-medium"
+          >
+            School Year
+          </label>
           <Select
             value={preferences.schoolYear}
             onValueChange={(value) => {
@@ -122,32 +125,41 @@ export function PreferencesCard() {
         </div>
 
         {/* Interests */}
-        <div className="space-y-3">
-          <Label>Areas of Interest</Label>
-          <p className="text-sm text-muted-foreground">
+        <div className="space-y-1.5">
+          <label className="text-xs font-medium">
+            Areas of Interest
+          </label>
+          <p className="text-xs text-muted-foreground">
             Select topics that interest you
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 pt-1">
             {AVAILABLE_INTERESTS.map((interest) => (
-              <Badge
+              <button
                 key={interest}
-                variant={
-                  preferences.interests.includes(interest)
-                    ? 'default'
-                    : 'outline'
-                }
-                className="cursor-pointer"
                 onClick={() => toggleInterest(interest)}
+                className={`
+                  h-7 px-3 text-xs border transition-all
+                  ${preferences.interests.includes(interest)
+                    ? 'bg-foreground text-background border-foreground'
+                    : 'bg-background text-foreground border hover:border-foreground'
+                  }
+                `}
+                style={{ borderRadius: 0 }}
               >
                 {interest}
-              </Badge>
+              </button>
             ))}
           </div>
         </div>
 
         {/* Theme */}
-        <div className="space-y-2">
-          <Label htmlFor="theme">Theme</Label>
+        <div className="space-y-1.5">
+          <label 
+            htmlFor="theme" 
+            className="text-xs font-medium"
+          >
+            Theme
+          </label>
           <Select value={theme} onValueChange={(value: any) => setTheme(value)}>
             <SelectTrigger id="theme">
               <SelectValue placeholder="Select theme" />
@@ -161,10 +173,15 @@ export function PreferencesCard() {
         </div>
 
         {/* Email Notifications */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between pt-2">
           <div className="space-y-0.5">
-            <Label htmlFor="notifications">Email Notifications</Label>
-            <p className="text-sm text-muted-foreground">
+            <label 
+              htmlFor="notifications" 
+              className="text-xs font-medium"
+            >
+              Email Notifications
+            </label>
+            <p className="text-xs text-muted-foreground">
               Receive updates about new PDFs
             </p>
           </div>
@@ -180,13 +197,23 @@ export function PreferencesCard() {
             }}
           />
         </div>
-      </CardContent>
-      <CardFooter>
-        <Button onClick={handleSave} disabled={!isEdited}>
+      </div>
+
+      {/* Footer */}
+      <div 
+        className="border-t px-6 py-3 transition-all duration-300"
+        style={{ borderRadius: 0 }}
+      >
+        <button
+          onClick={handleSave}
+          disabled={!isEdited}
+          className="w-full h-9 text-sm bg-foreground text-background hover:bg-foreground/90 disabled:opacity-50 transition-all border border-foreground"
+          style={{ borderRadius: 0 }}
+        >
           Save Preferences
-        </Button>
-      </CardFooter>
-    </Card>
+        </button>
+      </div>
+    </div>
   );
 }
 
