@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { FileText, Loader2 } from 'lucide-react';
 
@@ -30,6 +30,8 @@ export function PDFViewer({
 }: PDFViewerProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const isMountedRef = useRef(true);
 
   const options = useMemo(
     () => ({
@@ -39,13 +41,34 @@ export function PDFViewer({
     []
   );
 
+  useEffect(() => {
+    isMountedRef.current = true;
+    setLoading(true);
+    setError(false);
+    setIsReady(false);
+    
+    const timer = setTimeout(() => {
+      if (isMountedRef.current) {
+        setIsReady(true);
+      }
+    }, 50);
+
+    return () => {
+      isMountedRef.current = false;
+      clearTimeout(timer);
+    };
+  }, [url]);
+
   function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
+    if (!isMountedRef.current) return;
     setLoading(false);
     onLoadSuccess?.(numPages);
   }
 
   function onDocumentLoadError(error: Error) {
-    console.error('Error loading PDF:', error);
+    if (!isMountedRef.current) return;
+    if (error.message?.includes('Worker was destroyed') || 
+        error.message?.includes('sendWithPromise')) return;
     setError(true);
     setLoading(false);
     onLoadError?.(error);
@@ -69,26 +92,28 @@ export function PDFViewer({
           <Loader2 className="h-6 w-6 text-muted-foreground animate-spin" />
         </div>
       )}
-      <Document
-        file={url}
-        onLoadSuccess={onDocumentLoadSuccess}
-        onLoadError={onDocumentLoadError}
-        loading=""
-        error=""
-        className="flex items-center justify-center"
-        options={options}
-      >
-        <Page
-          pageNumber={pageNumber}
-          width={width}
-          height={height}
-          scale={scale}
-          renderTextLayer={false}
-          renderAnnotationLayer={false}
+      {isReady && (
+        <Document
+          key={url}
+          file={url}
+          onLoadSuccess={onDocumentLoadSuccess}
+          onLoadError={onDocumentLoadError}
           loading=""
           error=""
-        />
-      </Document>
+          options={options}
+        >
+          <Page
+            pageNumber={pageNumber}
+            width={width}
+            height={height}
+            scale={scale}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
+            loading=""
+            error=""
+          />
+        </Document>
+      )}
     </div>
   );
 }
