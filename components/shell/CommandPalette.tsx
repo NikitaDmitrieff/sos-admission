@@ -107,7 +107,7 @@ export function CommandPalette({ open, onOpenChange }: CommandPaletteProps) {
                   <div className="flex flex-col">
                     <span>{pdf.title}</span>
                     <span className="text-xs text-muted-foreground">
-                      {pdf.school} • {pdf.country}
+                      {pdf.school.join(', ') || 'General'} • {pdf.country.join(', ') || 'All'}
                     </span>
                   </div>
                 </CommandItem>

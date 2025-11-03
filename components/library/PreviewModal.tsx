@@ -35,7 +35,8 @@ export function PreviewModal({ pdf, onClose, allPdfs }: PreviewModalProps) {
     .filter(
       (p) =>
         p.id !== pdf.id &&
-        (p.school === pdf.school || p.tags.some((tag) => pdf.tags.includes(tag)))
+        (p.school.some((s) => pdf.school.includes(s)) || 
+         p.tags.some((tag) => pdf.tags.includes(tag)))
     )
     .slice(0, 3);
 
@@ -119,14 +120,16 @@ export function PreviewModal({ pdf, onClose, allPdfs }: PreviewModalProps) {
               {/* School */}
               <div>
                 <p className="text-xs font-medium mb-1">School</p>
-                <p className="text-sm text-muted-foreground">{pdf.school}</p>
+                <p className="text-sm text-muted-foreground">{pdf.school.join(', ') || 'General'}</p>
               </div>
 
               {/* Country */}
-              <div>
-                <p className="text-xs font-medium mb-1">Country</p>
-                <p className="text-sm text-muted-foreground">{pdf.country}</p>
-              </div>
+              {pdf.country.length > 0 && (
+                <div>
+                  <p className="text-xs font-medium mb-1">Country</p>
+                  <p className="text-sm text-muted-foreground">{pdf.country.join(', ')}</p>
+                </div>
+              )}
 
               {/* Level */}
               <div>

@@ -7,10 +7,12 @@ type PDFRow = Database['public']['Tables']['pdfs']['Row'];
 export interface PDF {
   id: string;
   title: string;
-  school: string;
-  country: string;
+  school: string[];
+  country: string[];
   level: 'Undergraduate' | 'Graduate' | 'General';
   tags: string[];
+  disciplineTags: string[];
+  documentType: 'Outils' | 'Stratégie' | 'Ecole' | null;
   description: string;
   url: string;
   updatedAt: string;
@@ -22,10 +24,12 @@ function transformPDF(row: PDFRow): PDF {
   return {
     id: row.id,
     title: row.title,
-    school: row.school,
-    country: row.country,
+    school: row.school || [],
+    country: row.country || [],
     level: row.level,
-    tags: row.tags,
+    tags: row.tags || [],
+    disciplineTags: row.discipline_tags || [],
+    documentType: row.document_type,
     description: row.description,
     url: row.url,
     updatedAt: row.updated_at,
@@ -84,10 +88,11 @@ export async function searchPDFs(query: string): Promise<PDF[]> {
     return allPDFs.filter(
       (pdf) =>
         pdf.title.toLowerCase().includes(lowerQuery) ||
-        pdf.school.toLowerCase().includes(lowerQuery) ||
-        pdf.country.toLowerCase().includes(lowerQuery) ||
+        pdf.school.some((s) => s.toLowerCase().includes(lowerQuery)) ||
+        pdf.country.some((c) => c.toLowerCase().includes(lowerQuery)) ||
         pdf.description.toLowerCase().includes(lowerQuery) ||
-        pdf.tags.some((tag) => tag.toLowerCase().includes(lowerQuery))
+        pdf.tags.some((tag) => tag.toLowerCase().includes(lowerQuery)) ||
+        pdf.disciplineTags.some((d) => d.toLowerCase().includes(lowerQuery))
     );
   } catch (error) {
     console.error('Error during search:', error);

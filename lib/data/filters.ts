@@ -21,7 +21,7 @@ export function applyFilters(pdfs: PDF[], filters: FilterState): PDF[] {
 
   if (filters.countries.length > 0) {
     filtered = filtered.filter((pdf) =>
-      filters.countries.includes(pdf.country)
+      pdf.country.some((c) => filters.countries.includes(c))
     );
   }
 
@@ -30,7 +30,9 @@ export function applyFilters(pdfs: PDF[], filters: FilterState): PDF[] {
   }
 
   if (filters.schools.length > 0) {
-    filtered = filtered.filter((pdf) => filters.schools.includes(pdf.school));
+    filtered = filtered.filter((pdf) =>
+      pdf.school.some((s) => filters.schools.includes(s))
+    );
   }
 
   if (filters.searchQuery) {
@@ -38,8 +40,11 @@ export function applyFilters(pdfs: PDF[], filters: FilterState): PDF[] {
     filtered = filtered.filter(
       (pdf) =>
         pdf.title.toLowerCase().includes(query) ||
-        pdf.school.toLowerCase().includes(query) ||
-        pdf.tags.some((tag) => tag.toLowerCase().includes(query))
+        pdf.school.some((s) => s.toLowerCase().includes(query)) ||
+        pdf.country.some((c) => c.toLowerCase().includes(query)) ||
+        pdf.tags.some((tag) => tag.toLowerCase().includes(query)) ||
+        pdf.disciplineTags.some((d) => d.toLowerCase().includes(query)) ||
+        pdf.description.toLowerCase().includes(query)
     );
   }
 
@@ -77,16 +82,16 @@ export function extractUniqueValues(pdfs: PDF[]) {
 
   pdfs.forEach((pdf) => {
     pdf.tags.forEach((tag) => tags.add(tag));
-    countries.add(pdf.country);
+    pdf.country.forEach((c) => countries.add(c));
     levels.add(pdf.level);
-    schools.add(pdf.school);
+    pdf.school.forEach((s) => schools.add(s));
   });
 
   return {
     tags: Array.from(tags).sort(),
-    countries: Array.from(countries).sort(),
+    countries: Array.from(countries).filter(c => c).sort(), // Filter out empty strings
     levels: Array.from(levels).sort(),
-    schools: Array.from(schools).sort(),
+    schools: Array.from(schools).filter(s => s).sort(), // Filter out empty strings
   };
 }
 

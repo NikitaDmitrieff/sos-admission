@@ -42,7 +42,7 @@ export function BundleCard({ pdf, viewMode = 'grid', onPreview }: BundleCardProp
           <div className="flex-1 min-w-0">
             <h3 className="text-sm font-medium truncate">{pdf.title}</h3>
             <p className="text-xs text-muted-foreground mt-0.5">
-              {pdf.school} • {pdf.country}
+              {pdf.school.join(', ') || 'General'} • {pdf.country.join(', ') || 'All'}
             </p>
             <div className="flex flex-wrap gap-2 mt-2">
               {pdf.tags.slice(0, 3).map((tag) => (
@@ -107,7 +107,7 @@ export function BundleCard({ pdf, viewMode = 'grid', onPreview }: BundleCardProp
       {/* Content - Flex grow to fill space */}
       <div className="p-6 space-y-4 flex-1 flex flex-col">
         <p className="text-xs text-muted-foreground">
-          {pdf.school}
+          {pdf.school.join(', ') || 'General'} {pdf.country.length > 0 && `• ${pdf.country.join(', ')}`}
         </p>
         <div className="flex flex-wrap gap-2">
           {pdf.tags.slice(0, 2).map((tag) => (

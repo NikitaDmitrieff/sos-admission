@@ -8,10 +8,12 @@ export interface Database {
         Row: {
           id: string;
           title: string;
-          school: string;
-          country: string;
+          school: string[];
+          country: string[];
           level: 'Undergraduate' | 'Graduate' | 'General';
           tags: string[];
+          discipline_tags: string[];
+          document_type: 'Outils' | 'Stratégie' | 'Ecole' | null;
           description: string;
           url: string;
           updated_at: string;

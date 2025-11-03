@@ -150,7 +150,7 @@ export default function Home() {
                     <div className="flex flex-col min-w-0">
                       <span className="text-sm truncate">{pdf.title}</span>
                       <span className="text-xs text-muted-foreground">
-                        {pdf.school} • {pdf.country}
+                        {pdf.school.join(', ') || 'General'} • {pdf.country.join(', ') || 'All'}
                       </span>
                     </div>
                   </button>
