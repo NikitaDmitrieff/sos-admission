@@ -27,10 +27,17 @@ A modern, minimal dashboard for students and parents to access a curated library
   - Smooth animations and transitions
   - WCAG AA compliant
 
-### Coming Soon (Placeholders)
+### Recent
 
-- **🤖 AI Coach**: RAG-powered chat assistant for admission advice
+- **🤖 AI Coach**: Chat assistant powered by GPT-3.5 for admission advice
+  - Real-time streaming responses
+  - Clean, minimal chat interface
+  - Requires separate Python FastAPI backend (see BACKEND_GUIDE.md)
+
+### Coming Soon
+
 - **📋 Processes**: Personal workspaces to track application progress
+- **🔍 RAG Integration**: AI Coach with PDF library search and citations
 
 ## Tech Stack
 
@@ -94,12 +101,29 @@ cd sos-admissions
 npm install
 ```
 
-3. Run the development server
+3. Set up environment variables (optional for AI Coach)
+```bash
+# Create .env.local file
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
+```
+
+4. Run the development server
 ```bash
 npm run dev
 ```
 
-4. Open [http://localhost:3000](http://localhost:3000)
+5. Open [http://localhost:3000](http://localhost:3000)
+
+### AI Coach Setup (Optional)
+
+To enable the AI Coach feature, you need to set up the Python FastAPI backend:
+
+1. See detailed instructions in `BACKEND_GUIDE.md`
+2. Install Python 3.10+ and dependencies
+3. Configure OpenAI API key
+4. Run backend: `uvicorn main:app --reload --port 8000`
+
+The AI Coach will automatically connect to the backend at `http://localhost:8000`.
 
 ## Available Scripts
 
@@ -151,6 +175,7 @@ Create `.env.local`:
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=your-project-url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000
 ```
 
 ### 3. Database Schema

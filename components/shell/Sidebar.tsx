@@ -38,7 +38,7 @@ const navItems = [
     title: 'AI Coach',
     href: '/ai-coach',
     icon: MessageSquare,
-    badge: 'Soon',
+    badge: null,
   },
   {
     title: 'Processes',
