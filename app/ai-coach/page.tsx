@@ -29,13 +29,13 @@ export default function AICoachPage() {
 
     const userMessage = input.trim();
     setInput('');
-    
+
     // Add user message immediately
     setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
     setIsLoading(true);
 
     try {
-      const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL || 'http://localhost:8000';
+      const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
       const response = await fetch(`${backendUrl}/api/chat/stream`, {
         method: 'POST',
         headers: {
@@ -54,14 +54,14 @@ export default function AICoachPage() {
 
       if (reader) {
         let buffer = '';
-        
+
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
 
           buffer += decoder.decode(value, { stream: true });
           const lines = buffer.split('\n\n');
-          
+
           // Keep the last incomplete line in the buffer
           buffer = lines.pop() || '';
 
@@ -69,14 +69,14 @@ export default function AICoachPage() {
             const line = chunk.trim();
             if (line.startsWith('data: ')) {
               const content = line.slice(6); // Remove 'data: ' prefix
-              
+
               if (content === '[DONE]') {
                 setIsLoading(false);
                 break;
               } else if (content.startsWith('[ERROR]')) {
-                setMessages(prev => [...prev, { 
-                  role: 'assistant', 
-                  content: 'Sorry, I encountered an error. Please try again.' 
+                setMessages(prev => [...prev, {
+                  role: 'assistant',
+                  content: 'Sorry, I encountered an error. Please try again.'
                 }]);
                 setIsLoading(false);
                 break;
@@ -99,15 +99,15 @@ export default function AICoachPage() {
           }
         }
       }
-      
+
       setIsLoading(false);
     } catch (error) {
       console.error('Chat error:', error);
       setMessages(prev => {
         const newMessages = [...prev];
-        if (newMessages[newMessages.length - 1].role === 'assistant' && 
-            newMessages[newMessages.length - 1].content === '') {
-          newMessages[newMessages.length - 1].content = 
+        if (newMessages[newMessages.length - 1].role === 'assistant' &&
+          newMessages[newMessages.length - 1].content === '') {
+          newMessages[newMessages.length - 1].content =
             'Sorry, I couldn\'t connect to the AI Coach. Please make sure the backend is running.';
         } else {
           newMessages.push({
@@ -131,7 +131,7 @@ export default function AICoachPage() {
       </div>
 
       {/* Messages Area */}
-      <div 
+      <div
         ref={scrollAreaRef}
         className="flex-1 overflow-y-auto px-8 py-6"
       >
@@ -175,9 +175,8 @@ export default function AICoachPage() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex gap-4 ${
-                  message.role === 'user' ? 'justify-end' : 'justify-start'
-                }`}
+                className={`flex gap-4 ${message.role === 'user' ? 'justify-end' : 'justify-start'
+                  }`}
               >
                 {message.role === 'assistant' && (
                   <div className="h-8 w-8 bg-primary/10 flex items-center justify-center flex-shrink-0">
@@ -185,11 +184,10 @@ export default function AICoachPage() {
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] px-4 py-3 ${
-                    message.role === 'user'
+                  className={`max-w-[80%] px-4 py-3 ${message.role === 'user'
                       ? 'bg-foreground text-background'
                       : 'bg-muted'
-                  }`}
+                    }`}
                   style={{ borderRadius: 0 }}
                 >
                   <p className="text-sm whitespace-pre-wrap">{message.content}</p>
